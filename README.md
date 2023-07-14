@@ -33,7 +33,7 @@ must be installed and running with a connection to the internet to building the 
 
 If you need to install Docker, you can get it [here](https://docs.docker.com/get-docker).
 
-# Uploading with timex\_datalink\_client
+## Uploading with timex\_datalink\_client
 
 The assembled ZAP files can be synced to your Timex Datalink watch using the
 [timex\_datalink\_client Ruby library](https://github.com/synthead/timex_datalink_client) with a Notebook Adapter like
