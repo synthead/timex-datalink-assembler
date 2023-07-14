@@ -8,7 +8,7 @@ ENV WINEPREFIX=/root/wine
 # Install Microsoft Visual C++ 4.
 RUN winetricks mfc40
 
-# Download and silently install Toebes' assembler setup program with a fake framebuffer.
+# Download and install Toebes' assembler with a fake framebuffer.
 RUN wget --directory-prefix=/root http://www.toebes.com/Datalink/asm6805.zip
 RUN unzip /root/asm6805.zip -d /root/asm6805
 RUN Xvfb :0 -screen 0 1024x768x16 & DISPLAY=:0 wine /root/asm6805/ASM6805.EXE /s
