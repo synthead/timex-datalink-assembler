@@ -75,7 +75,7 @@ container_id=$(start_container)
 # Copy the assembly file to the container.
 docker cp --quiet -- "$1" "$container_id:/root/asm_file"
 
-# Compile the assembly file (and ensure that a newline is written after compiler text output).
+# Compile the assembly file (and ensure that a newline is written after assembler text output).
 docker exec --env WINEDEBUG=-all "$container_id" sh -c "wine /root/VAsm6805.exe /root/asm_file && echo"
 
 # VAsm6805.exe creates a file name based on the contents of the assembly file, so rename it to something consistent.
