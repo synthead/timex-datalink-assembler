@@ -13,7 +13,7 @@ set -eE
 if [ -z "$1" ]; then
   printf "%s\n" \
     "Usage: mkzap ASSEMBLY_FILE [OUTPUT_ZAP_FILE]" \
-    "Compile a WristApp in ZAP format for the Timex Datalink 150 and 150s." \
+    "Assemble a WristApp in ZAP format for the Timex Datalink 150 and 150s." \
     "" \
     "ASSEMBLY_FILE is a path to a ZSM assembly file." \
     "OUTPUT_ZAP_FILE is a path to write the ZAP file (defaults to out.zap)." \
