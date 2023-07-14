@@ -29,7 +29,7 @@ ZSM format documentation: <https://www.toebes.com/Datalink/wristapps.html>
 ## System requirements
 
 The `mkzap` script will build a Docker image on its first run, and whenever it needs to build an updated image.  Docker
-must be installed and running with a connection to the internet to building the image.
+must be installed and running with a connection to the internet to build the image.
 
 If you need to install Docker, you can get it [here](https://docs.docker.com/get-docker).
 
