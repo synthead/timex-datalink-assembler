@@ -1,6 +1,6 @@
 #!/bin/sh
 
-IMAGE_NAME=timex-datalink-wristapp-compiler
+IMAGE_NAME=timex-datalink-wristapp-assembler
 IMAGE_VERSION=0.1.0
 
 IMAGE_VERSIONED_TAG="$IMAGE_NAME:v$IMAGE_VERSION"
