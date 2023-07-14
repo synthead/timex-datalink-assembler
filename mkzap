@@ -23,7 +23,7 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-# If an argument for the output file was passed, use it.  Otherwise, append .zap to the assembly file.
+# If an argument for the output file was passed, use it.  Otherwise, use out.zap.
 output_file=${2:-out.zap}
 
 # If the output file already exists, immediately exit.
