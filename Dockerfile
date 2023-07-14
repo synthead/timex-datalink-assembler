@@ -25,7 +25,7 @@ COPY --from=build /root/wine /root/wine
 RUN mkdir -p /root/wine/drive_c/DATALINK/APP
 RUN echo -e "[Main]\r\nPath=C:\\DATALINK\r\n" > /root/wine/drive_c/windows/TIMEXDL.INI
 
-# Fix a bug where VAsm6805.exe attempts to read from the 64-bit Program Files.
+# Work around a bug where VAsm6805.exe attempts to read from the 64-bit Program Files.
 RUN ln -s "/root/wine/drive_c/Program Files (x86)/DataLink Devel" "/root/wine/drive_c/Program Files/DataLink Devel"
 
 # Symlinks in root's home for convenience.
