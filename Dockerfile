@@ -28,6 +28,6 @@ RUN echo -e "[Main]\r\nPath=C:\\DATALINK\r\n" > /root/wine/drive_c/windows/TIMEX
 # Work around a bug where VAsm6805.exe attempts to read from the 64-bit Program Files.
 RUN ln -s "/root/wine/drive_c/Program Files (x86)/DataLink Devel" "/root/wine/drive_c/Program Files/DataLink Devel"
 
-# Symlinks in root's home for convenience.
+# Add symlinks to root's home for convenience.
 RUN ln -s "/root/wine/drive_c/Program Files (x86)/DataLink Devel/VAsm6805.exe" /root/VAsm6805.exe
 RUN ln -s /root/wine/drive_c/DATALINK/APP /root/out
