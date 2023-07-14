@@ -81,5 +81,5 @@ docker exec --env WINEDEBUG=-all "$container_id" sh -c "wine /root/VAsm6805.exe 
 # VAsm6805.exe creates a file name based on the contents of the assembly file, so rename it to something consistent.
 docker exec "$container_id" sh -c "mv /root/out/*.ZAP /root/out/asm_file.zap"
 
-# Copy the compiled ZAP file to the host based on the assembly file's file name.
+# Copy the ZAP file to the host based on the assembly file's file name.
 docker cp -- "$container_id:/root/out/asm_file.zap" "$output_file"
