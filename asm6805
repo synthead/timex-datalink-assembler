@@ -27,6 +27,11 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
+if [ ! -e "$1" ]; then
+  printf '%s %s\n' "$1" "does not exist!"
+  exit 1
+fi
+
 # If an argument for the output file was passed, use it.  Otherwise, use out.zap.
 if [ -n "$2" ]; then
   output_file=$2
