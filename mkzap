@@ -1,10 +1,12 @@
 #!/bin/sh
 
 IMAGE_NAME=timex-datalink-wristapp-assembler
-IMAGE_VERSION=0.1.0
+IMAGE_VERSION=0.2.0
 
 IMAGE_VERSIONED_TAG="$IMAGE_NAME:v$IMAGE_VERSION"
 IMAGE_LATEST_TAG="$IMAGE_NAME:latest"
+
+DOCKER_DIR="$(realpath "$0")/docker"
 
 # If anything goes wrong, stop the script while still calling the trap.
 set -eE
@@ -33,53 +35,10 @@ if [ -e "$output_file" ]; then
   exit 1
 fi
 
-build_image() {
-  # If the Docker image exists at the current version, skip building it.
-  docker image inspect "$IMAGE_VERSIONED_TAG" &> /dev/null && return
-
-  # Get the real path to this script (in case it's being called by a symlink).
-  script_name=$(realpath "$0")
-
-  # Build the Docker image from the Dockerfile in the script's directory.
-  docker build "$(dirname "$script_name")" --tag "$IMAGE_VERSIONED_TAG" --tag "$IMAGE_LATEST_TAG"
-}
-
-start_container() {
-  # Start a Docker container in the background with a command that'll make it hang forever.
-  docker run --rm --detach "$IMAGE_VERSIONED_TAG" tail -f /dev/null
-}
-
-stop_container() {
-  # We don't care about the contents in the container, so quickly kill it.
-  docker kill "$container_id" &> /dev/null
-
-  true
-}
-
-stop_container_with_failure() {
-  stop_container
-
-  false
-}
-
 # Build the Docker image if it doesn't exist.
-build_image
+if ! docker image inspect "$IMAGE_VERSIONED_TAG" &> /dev/null; then
+  docker build "$DOCKER_DIR" --tag "$IMAGE_VERSIONED_TAG" --tag "$IMAGE_LATEST_TAG"
+fi
 
-# Always stop (and remove) the Docker container when the script finishes.
-trap stop_container_with_failure INT TERM ERR
-trap stop_container EXIT
-
-# Start a Docker container in the background and capture its ID.
-container_id=$(start_container)
-
-# Copy the assembly file to the container.
-docker cp --quiet -- "$1" "$container_id:/root/asm_file"
-
-# Assemble the program with Toebes' assembler (and ensure that a newline is written after assembler text output).
-docker exec --env WINEDEBUG=-all "$container_id" sh -c "wine /root/VAsm6805.exe /root/asm_file && echo"
-
-# VAsm6805.exe creates a file name based on the contents of the assembly file, so rename it to something consistent.
-docker exec "$container_id" sh -c "mv /root/out/*.ZAP /root/out/asm_file.zap"
-
-# Copy the ZAP file to the host based on the assembly file's file name.
-docker cp -- "$container_id:/root/out/asm_file.zap" "$output_file"
+# Assemble the program with Toebes' assembler with a wrapper script.
+docker run --rm --interactive "$IMAGE_VERSIONED_TAG" /root/VAsm6805-wrapper < "$1" > "$output_file"
