@@ -6,8 +6,9 @@ IMAGE_VERSION=0.3.0
 IMAGE_VERSIONED_TAG="$IMAGE_NAME:v$IMAGE_VERSION"
 IMAGE_LATEST_TAG="$IMAGE_NAME:latest"
 
-SCRIPT_NAME=$(basename "$0")
-DOCKER_DIR="$(realpath "$0")/docker"
+SCRIPT_REALPATH=$(realpath "$0")
+SCRIPT_NAME=$(basename "$SCRIPT_REALPATH")
+DOCKER_DIR="$(dirname "$SCRIPT_REALPATH")/docker"
 
 # If anything goes wrong, stop the script while still calling the trap.
 set -eE
