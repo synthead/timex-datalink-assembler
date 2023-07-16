@@ -1,12 +1,14 @@
 #!/bin/sh
 
 IMAGE_NAME=timex-datalink-wristapp-assembler
-IMAGE_VERSION=0.2.0
+IMAGE_VERSION=0.3.0
 
 IMAGE_VERSIONED_TAG="$IMAGE_NAME:v$IMAGE_VERSION"
 IMAGE_LATEST_TAG="$IMAGE_NAME:latest"
 
-DOCKER_DIR="$(realpath "$0")/docker"
+SCRIPT_REALPATH=$(realpath "$0")
+SCRIPT_NAME=$(basename "$SCRIPT_REALPATH")
+DOCKER_DIR="$(dirname "$SCRIPT_REALPATH")/docker"
 
 # If anything goes wrong, stop the script while still calling the trap.
 set -eE
@@ -14,11 +16,11 @@ set -eE
 # Display usage if no arguments are passed to the script.
 if [ -z "$1" ]; then
   printf "%s\n" \
-    "Usage: mkzap ASSEMBLY_FILE [OUTPUT_ZAP_FILE]" \
-    "Assemble a WristApp in ZAP format for the Timex Datalink 150 and 150s." \
+    "Usage: $SCRIPT_NAME ASSEMBLY_FILE [OUTPUT_FILE]" \
+    "Assemble a WristApp or sound scheme for the Timex Datalink 150 and 150s." \
     "" \
     "ASSEMBLY_FILE is a path to a ZSM assembly file." \
-    "OUTPUT_ZAP_FILE is a path to write the ZAP file (defaults to out.zap)." \
+    "OUTPUT_FILE is a path to write the ZAP or SPC file (defaults to out.zap or out.spc)." \
     "" \
     "ZSM format documentation: <https://www.toebes.com/Datalink/wristapps.html>"
 
@@ -26,7 +28,13 @@ if [ -z "$1" ]; then
 fi
 
 # If an argument for the output file was passed, use it.  Otherwise, use out.zap.
-output_file=${2:-out.zap}
+if [ -n "$2" ]; then
+  output_file=$2
+elif grep -q '^;Sound:' "$1"; then
+  output_file=out.spc
+else
+  output_file=out.zap
+fi
 
 # If the output file already exists, immediately exit.
 if [ -e "$output_file" ]; then

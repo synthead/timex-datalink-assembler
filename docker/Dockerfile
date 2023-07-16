@@ -22,7 +22,7 @@ ENV WINEPREFIX=/root/wine
 COPY --from=build /root/wine /root/wine
 
 # Pretend that the Timex Datalink software is installed.
-RUN mkdir -p /root/wine/drive_c/DATALINK/APP
+RUN mkdir -p /root/wine/drive_c/DATALINK/APP /root/wine/drive_c/DATALINK/SND
 RUN echo -e "[Main]\r\nPath=C:\\DATALINK\r\n" > /root/wine/drive_c/windows/TIMEXDL.INI
 
 # Work around a bug where VAsm6805.exe attempts to read from the 64-bit Program Files.

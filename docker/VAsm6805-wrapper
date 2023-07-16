@@ -2,6 +2,7 @@
 
 VASM6805_EXE="/root/wine/drive_c/Program Files (x86)/DataLink Devel/VAsm6805.exe"
 DATALINK_APP_DIR="/root/wine/drive_c/DATALINK/APP"
+DATALINK_SND_DIR="/root/wine/drive_c/DATALINK/SND"
 
 vasm6805() {
   WINEDEBUG=-all wine "$VASM6805_EXE" "$1"
@@ -12,4 +13,4 @@ cat > /root/asm_file
 
 vasm6805 /root/asm_file 1>&2
 
-find "$DATALINK_APP_DIR" -type f -exec cat {} \;
+find "$DATALINK_APP_DIR" "$DATALINK_SND_DIR" -type f -exec cat {} \;
