@@ -26,7 +26,13 @@ if [ -z "$1" ]; then
 fi
 
 # If an argument for the output file was passed, use it.  Otherwise, use out.zap.
-output_file=${2:-out.zap}
+if [ -n "$2" ]; then
+  output_file=$2
+elif grep -q '^;Sound:' "$1"; then
+  output_file=out.spc
+else
+  output_file=out.zap
+fi
 
 # If the output file already exists, immediately exit.
 if [ -e "$output_file" ]; then
