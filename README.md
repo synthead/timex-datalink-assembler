@@ -9,7 +9,6 @@ $ asm6805 01_hello.zsm 01_hello.zap
 Assembling 150 Version...
 Assembling 150S Version...
 Assembly successful: Code=97 Bytes
-Successfully copied 2.56kB to /home/max/repos/toebes-datalink-tutorials/tutorials/01_hello.zap
 ```
 
 ## Usage
