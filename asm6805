@@ -28,7 +28,7 @@ if [ -z "$1" ]; then
 fi
 
 if [ ! -e "$1" ]; then
-  printf '%s %s\n' "$1" "does not exist!"
+  printf '%s %s\n' "$1" "does not exist!" 1>&2
   exit 1
 fi
 
