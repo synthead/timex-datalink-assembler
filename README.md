@@ -1,7 +1,7 @@
-# Docker image for Toebes' WristApp assembler
+# Docker image for Toebes' Timex Datalink assembler
 
-This repo wraps Toebes' excellent WristApp assembler for the Datalink 150 and 150s in a Docker image with Wine!  Paired
-with a helper script called `asm6805`, this Win32 program from 1998 is now presented as a platform-agnostic CLI
+This repo wraps Toebes' excellent Timex Datalink assembler for the Datalink 150 and 150s in a Docker image with Wine!
+Paired with a helper script called `asm6805`, this Win32 program from 1998 is now presented as a platform-agnostic CLI
 experience:
 
 ```shell
